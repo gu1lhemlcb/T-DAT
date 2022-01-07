@@ -1,47 +1,55 @@
 <template>
   <div id="app" class="container">
-    <h3>{{ user }}</h3>
-    <h4>SalesMaille</h4>
+    <h3>Client: {{ user }}</h3>
+
+    <h4>Dépenses totales: {{ totalStats.totalSpent }}€</h4>
+    <h4>Nb d'articles achetés total: {{ totalStats.articleSold }}</h4>
+    <h4>Nb de commande total: {{ totalStats.totalOrder }}</h4>
+    <h4>Prix du panier moyen: {{ totalStats.averageCart }}€</h4>
+
+    <h4>Nb d'articles achetés total par MAILLE</h4>
     <JSCharting
       :options="chartOptionsSalesMaille"
       class="chartDiv"
     ></JSCharting>
-    <h4>SalesFamille</h4>
+    
+    <h4>Nb d'articles achetés total par FAMILLE</h4>
     <JSCharting
       :options="chartOptionsSalesFamille"
       class="chartDiv"
     ></JSCharting>
-    <h4>SalesMonth</h4>
+    
+    <h4>Nb d'articles achetés total par MOIS</h4>
     <JSCharting :options="chartOptionsSalesMonth" class="chartDiv"></JSCharting>
-    <h4>SpentMonth</h4>
-
+    
+    <h4>Dépenses moyennes par MOIS</h4>
     <JSCharting :options="chartOptionsSpentMonth" class="chartDiv"></JSCharting>
-    <h4>OrderMonth</h4>
-
+    
+    <h4>Nb de commande par MOIS</h4>
     <JSCharting :options="chartOptionsOrderMonth" class="chartDiv"></JSCharting>
-    <h4>CartMonth</h4>
-
+    
+    <h4>Prix du panier moyen par MOIS</h4>
     <JSCharting :options="chartOptionsCartMonth" class="chartDiv"></JSCharting>
-    <h4>SalesFamilleMonth</h4>
-
+    
+    <h4>Nb d'd'articles achetés par MAILLE par MOIS</h4>
     <JSCharting
       :options="chartOptionsSalesFamilleMonth"
       class="chartDiv"
     ></JSCharting>
-    <h4>SalesMailleMonth</h4>
-
+    
+    <h4>Nb d'd'articles achetés total par FAMILLE par MOIS</h4>
     <JSCharting
       :options="chartOptionsSalesMailleMonth"
       class="chartDiv"
     ></JSCharting>
-    <h4>SpentFamilleMonth</h4>
-
+    
+    <h4>Dépenses totales par FAMILLE par MOIS</h4>
     <JSCharting
       :options="chartOptionsSpentFamilleMonth"
       class="chartDiv"
     ></JSCharting>
-    <h4>SpentMailleMonth</h4>
-
+    
+    <h4>Dépenses totales par FAMILLE par MOIS</h4>
     <JSCharting
       :options="chartOptionsSpentMailleMonth"
       class="chartDiv"
@@ -61,11 +69,17 @@ export default {
   data() {
     return {
       user: 0,
+      totalStats: {
+        totalSpent: 0,
+        articleSold: 0,
+        totalOrder: 0,
+        averageCart: 0,
+      },
       chartOptionsSalesMaille: {
         type: "column",
         series: [
           {
-            name: "SALES_PER_MAILLE",
+            name: "d'articles achetés par MAILLE",
             points: [],
           },
         ],
@@ -74,7 +88,7 @@ export default {
         type: "column",
         series: [
           {
-            name: "SALES_PER_FAMILLE",
+            name: "d'articles achetés par FAMILLE",
             points: [],
           },
         ],
@@ -83,7 +97,7 @@ export default {
         type: "line",
         series: [
           {
-            name: "SALES_PER_MONTH",
+            name: "d'articles achetés pas MOIS",
             points: [],
           },
         ],
@@ -92,7 +106,7 @@ export default {
         type: "line",
         series: [
           {
-            name: "SPENT_PER_MONTH",
+            name: "Dépenses par MOIS",
             points: [],
           },
         ],
@@ -101,7 +115,7 @@ export default {
         type: "line",
         series: [
           {
-            name: "ORDER_PER_MONTH",
+            name: "Commandes par MOIS",
             points: [],
           },
         ],
@@ -110,7 +124,7 @@ export default {
         type: "line",
         series: [
           {
-            name: "AVERAGE_CART_PER_MONTH",
+            name: "Panier par MOIS",
             points: [],
           },
         ],
@@ -143,6 +157,10 @@ export default {
       .get("stats.json")
       .then((response) => {
         this.user = response.data.user;
+        this.totalStats.averageCart = response.data.stats["AVERAGE_CART"].data;
+        this.totalStats.totalOrder = response.data.stats["TOTAL_ORDER"].data;
+        this.totalStats.articleSold = response.data.stats["ARTICLES_SOLD"].data;
+        this.totalStats.totalSpent = response.data.stats["TOTAL_SPENT"].data;
 
         //
         //  SALES_PER_MAILLE
