@@ -1,55 +1,57 @@
 <template>
   <div id="app" class="container">
-    <h3>Client: {{ user }}</h3>
+    <h1>Client: {{ user }}</h1>
+    
+    <h3>Nb de commande total: {{ totalStats.totalOrder }}</h3>
+    <h4>Nb de commande par MOIS</h4>
+    <JSCharting :options="chartOptionsOrderMonth" class="chartDiv"></JSCharting>
 
-    <h4>Dépenses totales: {{ totalStats.totalSpent }}€</h4>
-    <h4>Nb d'articles achetés total: {{ totalStats.articleSold }}</h4>
-    <h4>Nb de commande total: {{ totalStats.totalOrder }}</h4>
-    <h4>Prix du panier moyen: {{ totalStats.averageCart }}€</h4>
-
-    <h4>Nb d'articles achetés total par MAILLE</h4>
-    <JSCharting
-      :options="chartOptionsSalesMaille"
-      class="chartDiv"
-    ></JSCharting>
+    <h3>Nb d'articles achetés total: {{ totalStats.articleSold }}</h3>
+    <h4>Nb d'articles achetés total par MOIS</h4>
+    <JSCharting :options="chartOptionsSalesMonth" class="chartDiv"></JSCharting>
     
     <h4>Nb d'articles achetés total par FAMILLE</h4>
     <JSCharting
       :options="chartOptionsSalesFamille"
       class="chartDiv"
     ></JSCharting>
-    
-    <h4>Nb d'articles achetés total par MOIS</h4>
-    <JSCharting :options="chartOptionsSalesMonth" class="chartDiv"></JSCharting>
-    
-    <h4>Dépenses moyennes par MOIS</h4>
-    <JSCharting :options="chartOptionsSpentMonth" class="chartDiv"></JSCharting>
-    
-    <h4>Nb de commande par MOIS</h4>
-    <JSCharting :options="chartOptionsOrderMonth" class="chartDiv"></JSCharting>
-    
-    <h4>Prix du panier moyen par MOIS</h4>
-    <JSCharting :options="chartOptionsCartMonth" class="chartDiv"></JSCharting>
-    
-    <h4>Nb d'd'articles achetés par MAILLE par MOIS</h4>
+
+    <h4>Nb d'd'articles achetés total par FAMILLE par MOIS</h4>
     <JSCharting
       :options="chartOptionsSalesFamilleMonth"
       class="chartDiv"
     ></JSCharting>
     
-    <h4>Nb d'd'articles achetés total par FAMILLE par MOIS</h4>
+    <h4>Nb d'articles achetés total par MAILLE</h4>
+    <JSCharting
+      :options="chartOptionsSalesMaille"
+      class="chartDiv"
+    ></JSCharting>
+    
+    <h4>Nb d'd'articles achetés par MAILLE par MOIS</h4>
     <JSCharting
       :options="chartOptionsSalesMailleMonth"
       class="chartDiv"
     ></JSCharting>
     
+
+    <h3>Prix du panier moyen: {{ totalStats.averageCart }}€</h3>
+      
+    <h4>Prix du panier moyen par MOIS</h4>
+    <JSCharting :options="chartOptionsCartMonth" class="chartDiv"></JSCharting>
+    
+    <h3>Dépenses totales: {{ totalStats.totalSpent }}€</h3>
+        
+    <h4>Dépenses moyennes par MOIS</h4>
+    <JSCharting :options="chartOptionsSpentMonth" class="chartDiv"></JSCharting>
+      
     <h4>Dépenses totales par FAMILLE par MOIS</h4>
     <JSCharting
       :options="chartOptionsSpentFamilleMonth"
       class="chartDiv"
     ></JSCharting>
     
-    <h4>Dépenses totales par FAMILLE par MOIS</h4>
+    <h4>Dépenses totales par MAILLE par MOIS</h4>
     <JSCharting
       :options="chartOptionsSpentMailleMonth"
       class="chartDiv"
